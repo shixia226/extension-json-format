@@ -1,0 +1,23 @@
+{
+    "pluginDesc": { "message": "JSON format" },
+    "toastCopy": { "message": "JSON fragment is copied successfully!" },
+    "toastSucessFilter": { "message": "Set up the filter successfully!" },
+    "toastErrorFilter": { "message": "Filter condition format error!" },
+    "toastExpand": { "message": "Expand the JSON fragment!" },
+    "toastCollapse": { "message": "Fold the JSON fragment!" },
+    "btnCopy": { "message": "Copy" },
+    "btnFilter": { "message": "Filter" },
+    "btnExpand": { "message": "Expand" },
+    "btnCollapse": { "message": "Collapse" },
+    "btnApply": { "message": "Apply" },
+    "btnSave": { "message": "Save" },
+    "btnClose": { "message": "Close" },
+    "titleHistory": { "message": "History Filter List" },
+    "successDelete": { "message": "Delete success!" },
+    "successUpdate": { "message": "Update success!" },
+    "successSave": { "message": "New success!" },
+    "confirmDelete": { "message": "Are you sure you want to delete [$1]?" },
+    "confirmUpdate": { "message": "Are you sure you want to update [$1]?" },
+    "promtInput": { "message": "Please enter the new filter condition name:" },
+    "expressInfo": { "message": "[Javascript Expression]\n\nYou can use variables: name (attribute name), value (attribute value), level (attribute level).\n\nFor example, we need to hide the property expression whose property is called exp value is 1 and the two level on the ground is:\n\n\nname==='exp' && value===1 && level = 2" }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "plugin-json",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack",
+    "build": "webpack --mode production"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-loader": "^7.1.4",
+    "css-loader": "^0.28.11",
+    "node-sass": "^4.8.3",
+    "sass-loader": "^7.0.1",
+    "style-loader": "^0.20.3"
+  },
+  "devDependencies": {
+    "webpack-cli": "^2.0.14"
+  },
+  "keywords": [],
+  "description": ""
+}

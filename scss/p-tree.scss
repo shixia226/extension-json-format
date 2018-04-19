@@ -1,0 +1,87 @@
+.p-tree {
+    color: #666;
+    font-size: 14px;
+    font-family: Helvetica, Tahoma, Arial;
+    margin-top: 16px;
+    ul {
+        margin: 0;
+        padding: 0;
+        li.item {
+            list-style: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            position: relative;
+            line-height: 26px;
+            margin-left: 15px;
+            padding-left: 20px;
+            margin-left: 4px;
+            label {
+                color: #282828;
+            }
+            &.pitem {
+                >.text-expand {
+                    &:before {
+                        content: '−';
+                        position: absolute;
+                        padding: 0 5px;
+                        margin-left: -20px;
+                        font-weight: bold;
+                        color: #999;
+                        cursor: pointer;
+                        user-select: none;
+                    }
+                }
+                >.text-collapse {
+                    display: none;
+                    >span {
+                        color: #999;
+                        font-size: 12px;
+                        margin: 0 5px;
+                    }
+                    &:before {
+                        content: '+';
+                        position: absolute;
+                        padding: 0 5px;
+                        margin-left: -20px;
+                        font-weight: bold;
+                        color: #999;
+                        cursor: pointer;
+                        user-select: none;
+                    }
+                }
+                &.collapse {
+                    >.text-expand,
+                    >ul {
+                        display: none;
+                    }
+                    >.text-collapse {
+                        display: initial;
+                    }
+                    &:before {
+                        display: none;
+                    }
+                }
+                &:before {
+                    content: '';
+                    position: absolute;
+                    border-left: 1px dotted #CCC;
+                    top: 26px;
+                    bottom: 26px;
+                    margin-left: 2px;
+                }
+            }
+            &.select,
+            &.hover {
+                border: 1px solid #2196f3;
+                border-radius: 5px;
+            }
+            &.hidden {
+                display: none;
+            }
+        }
+        li.suffix {
+            list-style: none;
+        }
+    }
+}
