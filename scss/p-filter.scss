@@ -44,6 +44,7 @@
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
+                cursor: pointer;
                 &.selected {
                     background: #03a9f4;
                 }

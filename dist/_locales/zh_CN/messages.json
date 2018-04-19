@@ -19,5 +19,5 @@
     "confirmDelete": { "message": "确定要删除【$1】?" },
     "confirmUpdate": { "message": "确定要更新【$1】?" },
     "promtInput": { "message": "请输入新增过滤条件名称：" },
-    "expressInfo": { "message": "【Javascript 表达式】\n\n你可以使用变量: name (属性名), value (属性值), level (属性层级).\n\n例如, 我们想要隐藏属性名为'exp'，属性值为1且层级为2的表达式为:\n\n\nname==='exp' && value===1 && level = 2" }
+    "expressInfo": { "message": "【Javascript 表达式】\n\n如果该表达式值为true时对应节点及其上下级均会显示，你可以使用变量: name (属性名), value (属性值), leaf(叶子节点), level (属性层级).\n\n例如, 我们想要隐藏属性名为'exp'，属性值为1且层级为2的叶子节点表达式为:\n\n\nname==='exp' && value===1 && level===2 && leaf===true" }
 }

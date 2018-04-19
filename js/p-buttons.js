@@ -15,7 +15,7 @@ var handlers = {
         Filter.show({
             handler: function(tree, value) {
                 try {
-                    value = new Function('name', 'value', (/^return /.test(value) ? '' : 'return ') + value);
+                    value = new Function('name', 'value', 'leaf', 'level', (/^return /.test(value) ? '' : 'return ') + value);
                     tree.filter(value);
                     Toast.show(chrome.i18n.getMessage('toastSucessFilter'));
                 } catch (e) {

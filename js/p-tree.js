@@ -40,20 +40,57 @@ export default class Tree {
             items[i].classList.add('collapse');
         }
     }
-    filter(func) {
-        let items = this.root.querySelectorAll('li.item');
-        for (let i = 0, len = items.length; i < len; i++) {
-            let item = items[i],
-                level = item.getAttribute('level'),
-                data = this.data;
-            if (level) {
-                level = level.split(',');
-                for (let j = 0, jlen = level.length; j < jlen; j++) {
-                    data = data.items[level[j]];
+    filter(func, pelem) {
+        if (!pelem) {
+            pelem = this.root;
+            pelem.style.display = 'none';
+        }
+        pelem.setAttribute('id', '__sizzle__');
+        let items, show = false;
+        try {
+            items = this.root.querySelectorAll('#__sizzle__ > ul > li.item');
+        } finally {
+            pelem.removeAttribute('id');
+        }
+        if (items) {
+            for (let i = 0, len = items.length; i < len; i++) {
+                let item = items[i],
+                    level = item.getAttribute('level'),
+                    data = this.data,
+                    itemShow = false,
+                    clsFunc;
+                if (level) {
+                    level = level.split(',');
+                    for (let j = 0, jlen = level.length; j < jlen; j++) {
+                        data = data.items[level[j]];
+                    }
+                    itemShow = Util.call(func, this, data.name, data.data, !item.classList.contains('pitem'), level.length) !== false;
                 }
-                item.classList[Util.call(func, this, data.name, data.data, level.length) ? 'add' : 'remove']('hidden');
+                if (!itemShow) {
+                    if ((itemShow = this.filter(func, item))) {
+                        item.classList.remove('collapse');
+                    }
+                } else {
+                    let citems = item.querySelectorAll('li.hidden');
+                    for (let j = 0, jlen = citems.length; j < jlen; j++) {
+                        citems[j].classList.remove('hidden');
+                    }
+                }
+                if (itemShow) {
+                    clsFunc = 'remove';
+                    show = true;
+                } else {
+                    clsFunc = 'add';
+                }
+                if (clsFunc) {
+                    item.classList[clsFunc]('hidden');
+                }
             }
         }
+        if (pelem === this.root) {
+            pelem.style.display = '';
+        }
+        return show;
     }
     serialize() {
         let item = this.root.querySelector('.item.select') || this.root;
@@ -197,7 +234,7 @@ function formatHtml(json, html, level) {
             html.push('<li class="item" level="', json.level, '"><span>', json.text, json.suffix, '</span></li>');
         }
     } else {
-        html.push('<li class="item" level="', json.level, '"><span>', json.text, json.suffix, '</span></li>');
+        html.push('<li class="item" level="', json.level, '" title="', json.data, '"><span>', json.text, json.suffix, '</span></li>');
     }
     return html;
 }

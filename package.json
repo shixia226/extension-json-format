@@ -1,13 +1,13 @@
 {
-  "name": "plugin-json",
+  "name": "extension-json-format",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "dev": "webpack",
     "build": "webpack --mode production"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "shixia",
+  "license": "MIT",
   "dependencies": {
     "babel-loader": "^7.1.4",
     "css-loader": "^0.28.11",
@@ -18,6 +18,16 @@
   "devDependencies": {
     "webpack-cli": "^2.0.14"
   },
-  "keywords": [],
-  "description": ""
+  "keywords": [
+    "shixia"
+  ],
+  "description": "A Chrome Extension for JSON Format.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shixia226/extension-json-format.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shixia226/extension-json-format/issues"
+  },
+  "homepage": "https://github.com/shixia226/extension-json-format#readme"
 }

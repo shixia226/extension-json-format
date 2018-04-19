@@ -19,5 +19,5 @@
     "confirmDelete": { "message": "Are you sure you want to delete [$1]?" },
     "confirmUpdate": { "message": "Are you sure you want to update [$1]?" },
     "promtInput": { "message": "Please enter the new filter condition name:" },
-    "expressInfo": { "message": "[Javascript Expression]\n\nYou can use variables: name (attribute name), value (attribute value), level (attribute level).\n\nFor example, we need to hide the property expression whose property is called exp value is 1 and the two level on the ground is:\n\n\nname==='exp' && value===1 && level = 2" }
+    "expressInfo": { "message": "[Javascript expression]\n\nIf the expression is true when the corresponding node and its upper and lower levels are displayed, you can use variables: name (attribute name), value (attribute value), leaf (leaf node), level (attribute level).\n\n, for example, we want to hide the leaf node expression with the attribute name of'exp', the attribute value of 1 and the level of 2. : \n\n\nname==='exp'& & value===1 & & level===2 & & leaf===true" }
 }
