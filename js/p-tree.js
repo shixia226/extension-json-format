@@ -40,57 +40,11 @@ export default class Tree {
             items[i].classList.add('collapse');
         }
     }
-    filter(func, pelem) {
-        if (!pelem) {
-            pelem = this.root;
-            pelem.style.display = 'none';
-        }
-        pelem.setAttribute('id', '__sizzle__');
-        let items, show = false;
-        try {
-            items = this.root.querySelectorAll('#__sizzle__ > ul > li.item');
-        } finally {
-            pelem.removeAttribute('id');
-        }
-        if (items) {
-            for (let i = 0, len = items.length; i < len; i++) {
-                let item = items[i],
-                    level = item.getAttribute('level'),
-                    data = this.data,
-                    itemShow = false,
-                    clsFunc;
-                if (level) {
-                    level = level.split(',');
-                    for (let j = 0, jlen = level.length; j < jlen; j++) {
-                        data = data.items[level[j]];
-                    }
-                    itemShow = Util.call(func, this, data.name, data.data, !item.classList.contains('pitem'), level.length) !== false;
-                }
-                if (!itemShow) {
-                    if ((itemShow = this.filter(func, item))) {
-                        item.classList.remove('collapse');
-                    }
-                } else {
-                    let citems = item.querySelectorAll('li.hidden');
-                    for (let j = 0, jlen = citems.length; j < jlen; j++) {
-                        citems[j].classList.remove('hidden');
-                    }
-                }
-                if (itemShow) {
-                    clsFunc = 'remove';
-                    show = true;
-                } else {
-                    clsFunc = 'add';
-                }
-                if (clsFunc) {
-                    item.classList[clsFunc]('hidden');
-                }
-            }
-        }
-        if (pelem === this.root) {
-            pelem.style.display = '';
-        }
-        return show;
+    filter(func) {
+        this.root.style.display = 'none';
+        let items = [].slice.apply(this.root.querySelectorAll('li.item'));
+        handlerFilter(func, this.data, this.root, items, items.length, 0);
+        this.root.style.display = '';
     }
     serialize() {
         let item = this.root.querySelector('.item.select') || this.root;
@@ -237,4 +191,68 @@ function formatHtml(json, html, level) {
         html.push('<li class="item" level="', json.level, '" title="', json.data, '"><span>', json.text, json.suffix, '</span></li>');
     }
     return html;
+}
+
+function getNextItem(item, root) {
+    while (item !== root) {
+        let nextItem = item.nextSibling;
+        if (nextItem && nextItem.classList.contains('item')) return nextItem;
+        item = item.parentNode.parentNode;
+    }
+}
+
+function handlerFilter(func, data, root, items, len, idx) {
+    let boundry = idx + 2000;
+    while (idx < len) {
+        let item = items[idx],
+            level = item.getAttribute('level'),
+            idata = data;
+        if (level) {
+            level = level.split(',');
+            for (let j = 0, jlen = level.length; j < jlen; j++) {
+                idata = idata.items[level[j]];
+            }
+            let itemCls = item.classList,
+                leaf = !itemCls.contains('pitem');
+            if (Util.call(func, null, idata.name, idata.data, leaf, level.length) !== false) { //该节点显示
+                if (!leaf) {
+                    let nitem = getNextItem(item, root);
+                    if (nitem) {
+                        let nidx = items.indexOf(nitem) - 1;
+                        while (idx < nidx) {
+                            let cls = items[++idx].classList;
+                            if (cls.contains('hidden')) {
+                                cls.remove('hidden');
+                            }
+                            if (cls.contains('pitem') && !cls.contains('collapse')) {
+                                cls.add('collapse')
+                            }
+                        }
+                    } else {
+                        idx = len;
+                    }
+                }
+                while (item !== root) { //显示该节点及其上级
+                    let cls = item.classList;
+                    if (cls.contains('hidden')) {
+                        cls.remove('hidden');
+                    }
+                    if (cls.contains('collapse')) {
+                        cls.remove('collapse');
+                    }
+                    item = item.parentNode.parentNode;
+                }
+                if (!leaf) {
+                    itemCls.add('collapse');
+                }
+            } else {
+                itemCls.add('hidden');
+            }
+        }
+        idx++;
+        if (idx >= boundry) {
+            setTimeout(handlerFilter, 10, func, data, root, items, len, idx);
+            break;
+        }
+    }
 }
